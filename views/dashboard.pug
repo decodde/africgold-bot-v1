@@ -18,13 +18,13 @@ html(lang="en")
             else 
                 a.h-button.h-bg-red.h-shadow-red.h-card-1.h-text-white.h-text-bold(href="/editDetails")  !! Edit AfricGold Details
             if botStarted == true
-                .h-bg-red.h-card.h-cricle
-                    p.h-text-white.h-text-bold(onclick = "stopBot()") Stop Bot
+                div.h-card
+                    p.h-center.h-shadow-red.h-bg-red.h-text-white.h-text-bold.h-card.h-circle(onclick = "stopBot()") Stop Bot
                     p.h-outline-lightblue.h-text-white.h-text-bold.h-card-1 Next click : #{`${new Date(nextBotClick).toGMTString()}`}
             else 
                 
                 div.h-card
-                    p.h-center.h-shadow-lightgreen.h-text-white.h-text-bold.h-card.h-circle.h-bg-lightgreen(onclick="startBot()") Start Bot
+                    p.h-center.h-shadow-lightgreen.h-text-white.h-text-bold.h-card.h-circle.h-bg-blight(onclick="startBot()") Start Bot
                     p.h-outline-lightblue.h-font-tiny-2.h-text-lightblue.h-text-bold.h-card-1 click : #{`${new Date().toGMTString()}`}
 script(type="text/javascript", src="./js/socket.io.min.js")
 script(type="text/javascript", src="./js/dash.js")
