@@ -56,7 +56,7 @@ const RouteControl = {
             var _register = await BotBrain.actions.register(req.body);
             if(_register.type == "success"){
                 req.session.user = _register.data;
-                res.render("dashboard",_register);
+                res.status(302).redirect("/dashboard");
             }
             else { 
                 res.render("register",_register);
