@@ -1,11 +1,11 @@
 {
-  "name": "testbot",
+  "name": "africgold-bot-v1",
   "version": "1.0.0",
   "description": "",
-  "main": "init.js",
+  "main": "_init.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node init.js"
+    "start": "node _init.js"
   },
   "keywords": [
     "d"

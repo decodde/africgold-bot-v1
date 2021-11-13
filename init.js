@@ -172,7 +172,7 @@ class africGold {
 }
 
 startMine = async () => {
-    var _afri = new africGold("Opefash", "fasinaopeoluwa");
+    var _afri = new africGold("Opefash", "");
     _afri.start();
 }
 startMine()
