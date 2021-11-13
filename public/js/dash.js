@@ -1,7 +1,7 @@
-let _url = "://localhost:8005"
-let baseUrl = "http://localhost:8005";
-//let baseUrl = "https://seiv.herokuapp.com";
-//let _url = "://seiv.herokuapp.com:80";
+//let _url = "://localhost:8005"
+//let baseUrl = "http://localhost:8005";
+let baseUrl = "https://africgold-bot-v1.herokuapp.com";
+let _url = "://africgold-bot-v1.herokuapp.com:80";
 
 let currentPage = "home";
 const socket = io(`ws${_url}`);
