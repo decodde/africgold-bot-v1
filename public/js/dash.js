@@ -70,9 +70,13 @@ var api = {
 var startBot = async () => {
     var _start = await api.startBot();
     console.log(_start);
-    
+    alert(_start.msg);
+    setTimeout(()=>{
+        window.location.reload()
+    },2000);
 }
 var stopBot = async () => {
     var _stop = await api.stopBot();
     console.log(_stop);
+    alert(_stop.msg);
 }
