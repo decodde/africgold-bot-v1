@@ -249,7 +249,7 @@ class africGoldBot {
                 //set timer for next click
                 setTimeout(async () => {
                     await BotBrain.actions.startBot(this.username);
-                },new Date(_nextClick).getTime());
+                },3600000);
 
                 this.olog(`CLICKED MINE BUTTON [${this.username}] `, "success");
             }
