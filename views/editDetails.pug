@@ -1,0 +1,39 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Bot@#{username} | Edit Details
+        link(rel="stylesheet", href="./css/h.css")
+    body.h-bg-black 
+        input#_username(value = `${africUsername}`)
+        .h-pail-center.h-bg-yellow-white.h-shadow-yellow-white-3.h-card 
+            form.h-card.h-text-center.h-bg-white(action="/saveAfrigoldDetails",method = "POST")
+                br
+                br
+                h4.h-text-bold Edit Details 
+                br
+                div 
+                    label.h-card-1.h-bg-white.h-text-bold.h-text.h-font-tiny africgold username
+                    br
+                    if africUsername && africUsername != ""
+                        input.h-input.h-outline-black#africUsername(required type = "text", value = `${africUsername}`,name ="africUsername")
+                    else 
+                        input.h-input.h-outline-black#africUsername(required type = "text",name ="africUsername")
+                br
+                div 
+                    label.h-card-1.h-bg-white.h-text-bold.h-text.h-font-tiny africgold password
+                    br
+                    if africPassword
+                        input.h-input.h-outline-black#africPassword(required type = "password", value = `${africPassword}`,name ="africPassword")
+                    else 
+                        input.h-input.h-outline-black#africPassword(required type = "password", name ="africPassword")
+                br 
+                br
+                br
+                button.h-button.h-text-bold.h-text-white.h-bg-lightblue(type="submit") Save
+                br
+                br
+
+script(type="text/javascript", src="./js/socket.io.min.js")
+script(type="text/javascript", src="./js/dash.js")

@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Bot | Register
+        link(rel="stylesheet", href="./css/h.css")
+    body 
+        .h-pail-center 
+            form.h-card.h-text-center.h-bg-white(action="/register",method = "POST")
+                br
+                br
+                h4.h-text-bold Register 
+                br
+                if type
+                    if type == "error"
+                        p.h-font-tiny.h-card-1.h-bg-red.h-text-bold.h-text-white #{msg}
+                div 
+                    label.h-card-1.h-bg-white.h-text-bold.h-text.h-font-tiny username
+                    br
+                    input.h-input.h-outline-black#username(required type = "text", name ="username")
+                br
+                div 
+                    label.h-card-1.h-bg-white.h-text-bold.h-text.h-font-tiny password
+                    br
+                    input.h-input.h-outline-black#password(required type = "password", name ="password")
+                br 
+                br
+                br
+                button.h-button.h-text-bold.h-text-white.h-bg-lightblue(type="submit") Register
+                br
+                br
+                br
+                span.h-text-bold.h-card-1.h-font-tiny.h-bg-lightblue.h-text-right
+                    a.h-text-white(href="/login") Login

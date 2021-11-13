@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Bot@#{username} | Dashboard
+        link(rel="stylesheet", href="./css/h.css")
+    body.h-bg-black 
+        input#_username(hidden,value = `${username}`)
+        .h-pail-center-full-1.h-bg-yellow-white.h-shadow-yellow-white-3.h-card 
+            div.h-flex-x.h-flex-center
+                h2.h-text-bold Hi, 
+                h5.h-text #{username}
+            br
+            if africUsername
+                a.h-button.h-bg-blight.h-card-1.h-text-white.h-text-bold(href="/editDetails") Edit AfricGold Details
+            else 
+                a.h-button.h-bg-red.h-shadow-red.h-card-1.h-text-white.h-text-bold(href="/editDetails")  !! Edit AfricGold Details
+            if botStarted == true
+                .h-bg-red.h-card.h-cricle
+                    p.h-text-white.h-text-bold(onclick = "stopBot()") Stop Bot
+                    p.h-outline-lightblue.h-text-white.h-text-bold.h-card-1 Next click : #{`${new Date(nextBotClick).toGMTString()}`}
+            else 
+                
+                div.h-card
+                    p.h-center.h-shadow-lightgreen.h-text-white.h-text-bold.h-card.h-circle.h-bg-lightgreen(onclick="startBot()") Start Bot
+                    p.h-outline-lightblue.h-font-tiny-2.h-text-lightblue.h-text-bold.h-card-1 click : #{`${new Date().toGMTString()}`}
+script(type="text/javascript", src="./js/socket.io.min.js")
+script(type="text/javascript", src="./js/dash.js")

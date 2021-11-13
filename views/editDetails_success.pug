@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Edit Details | Success
+        link(rel="stylesheet", href="./css/h.css")
+    body 
+        .h-pail-center.h-bg-lightgreen.h-card
+            h2.h-text-bold.h-text-white Success
+            p.h-text-bold.h-text-white Africgold details saved successfully
+
+            br
+            a.h-button.h-bg-lightblue.h-text-bold.h-text-white(href="/dashboard") Dashboard 
+            br
+            i.h-text-right You will be redirected in 5secs
+script(type="text/javascript").
+    setTimeout(() => {
+        window.location.href = "/dashboard";
+    },5000)
