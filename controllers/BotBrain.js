@@ -44,6 +44,8 @@ const BotBrain = {
         getUser: async (username) => {
             try {
                 var _req = await User.findOne({ username: username });
+                var _botClicks = await BotClick.find({username : username });
+                _req.botClicks = _botClicks;
                 return Response.success(Constants.DATA_RETRIEVE_SUCCESS, _req);
             }
             catch (e) {
@@ -223,13 +225,21 @@ class africGoldBot {
                 //GETTING NEXT CLICK
                 var now = new Date();
                 let _nextClick = now.setTime(now.getTime() + (10 * 60 * 1000));
+
+                var _update = await User.updateOne({ username: this.username }, {
+                    $set: {
+                        prevBotClick: new Date(),
+                        nextBotClick: new Date(_nextClick)
+                    }
+                });
+
                 //saving botClick
                 var botClick = new BotClick({
                     username: this.username,
                     status: "error",
                     time : new Date(),
                     msg: Constants.BOT_CLICK_IN_SESSION_RETRY,
-                    nextBotClick: _nextClick
+                    nextBotClick: new Date(_nextClick)
                 });
                 botClick.save();
 
@@ -258,7 +268,7 @@ class africGoldBot {
                 var _update = await User.updateOne({ username: this.username }, {
                     $set: {
                         prevBotClick: new Date(),
-                        nextBotClick: _nextClick,
+                        nextBotClick: new Date(_nextClick),
                         botStarted: true,
                     },
                     $inc: {
@@ -271,7 +281,7 @@ class africGoldBot {
                     status: "success",
                     time : new Date(),
                     msg: Constants.BOT_CLICK_SUCCESS,
-                    nextBotClick: _nextClick
+                    nextBotClick: new Date(_nextClick)
                 });
                 botClick.save();
                 //set timer for next click
@@ -284,12 +294,20 @@ class africGoldBot {
             catch (e) {
                 var now = new Date();
                 let _nextClick = now.setTime(now.getTime() + (10 * 60 * 1000));
+
+                var _update = await User.updateOne({ username: this.username }, {
+                    $set: {
+                        prevBotClick: new Date(),
+                        nextBotClick: new Date(_nextClick)
+                    }
+                });
+
                 var botClick = new BotClick({
                     username: this.username,
                     status: "error",
                     time : new Date(),
                     msg: Constants.BOT_CLICK_RETRY,
-                    nextBotClick: _nextClick
+                    nextBotClick: new Date(_nextClick)
                 });
                 botClick.save();
                 setTimeout(async () => {
