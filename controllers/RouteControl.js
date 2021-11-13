@@ -5,6 +5,7 @@ const RouteControl = {
         if(req.session.user){
             var {username} = req.session.user;
             var user = await BotBrain.actions.getUser(username);
+            
             if(user.type == "success"){
                 req.session.user = user.data;
                 next();

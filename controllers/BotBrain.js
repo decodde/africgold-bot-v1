@@ -43,10 +43,17 @@ const BotBrain = {
     actions: {
         getUser: async (username) => {
             try {
-                var _req = await User.findOne({ username: username });
+                var _req = await User.findOne({ username: username },{_id : 0});
                 var _botClicks = await BotClick.find({username : username });
-                _req.botClicks = _botClicks;
-                return Response.success(Constants.DATA_RETRIEVE_SUCCESS, _req);
+                var a = {
+                    botClicks : _botClicks
+                };
+                Object.keys(_req['_doc']).forEach(key=>{
+                    a[key] = _req[key];
+                });
+                //console.log(a)
+                
+                return Response.success(Constants.DATA_RETRIEVE_SUCCESS, a);
             }
             catch (e) {
                 console.log(e);
