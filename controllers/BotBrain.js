@@ -133,25 +133,27 @@ const BotBrain = {
         stopBot: async (username) => {
             var _req = await User.findOne({ username: username });
             var { africPassword, africUsername, botStarted } = _req;
-            if(botStarted){
-                try{
-                    var _upd = await User.updateOne({username : username},{$set : {
-                        botStarted : false
-                    }});
-                    if(_upd.acknowledged){
+            if (botStarted) {
+                try {
+                    var _upd = await User.updateOne({ username: username }, {
+                        $set: {
+                            botStarted: false
+                        }
+                    });
+                    if (_upd.acknowledged) {
                         return Response.success(Constants.BOT_STOP_SUCCESS);
                     }
                     else {
-                        return Response.error(Constants.BOT_STOP_FAIL,Constants.DB_ERROR);
+                        return Response.error(Constants.BOT_STOP_FAIL, Constants.DB_ERROR);
                     }
                 }
-                catch(e){
+                catch (e) {
                     console.log(e);
                     return Response.error(Constants.BOT_STOP_FAIL);
                 }
             }
             else {
-                return Response.error(Constants.BOT_STOP_FAIL,"bOT NOT STARTED");
+                return Response.error(Constants.BOT_STOP_FAIL, "bOT NOT STARTED");
             }
         }
     }
@@ -217,6 +219,24 @@ class africGoldBot {
             }
             else {
                 mineStr = "In mining session";
+
+                //GETTING NEXT CLICK
+                var now = new Date();
+                let _nextClick = now.setTime(now.getTime() + (10 * 60 * 1000));
+                //saving botClick
+                var botClick = new BotClick({
+                    username: this.username,
+                    status: "error",
+                    time : new Date(),
+                    msg: Constants.BOT_CLICK_IN_SESSION_RETRY,
+                    nextBotClick: _nextClick
+                });
+                botClick.save();
+
+                //set timer for next click
+                setTimeout(async () => {
+                    await BotBrain.actions.startBot(this.username);
+                }, 600000);
             }
             this.olog(`CHECKING MINE STATE [${this.username}] `, mineStr);
         }, 5000)
@@ -245,15 +265,37 @@ class africGoldBot {
                         botClicks: 1
                     }
                 });
-
+                //saving botClick
+                var botClick = new BotClick({
+                    username: this.username,
+                    status: "success",
+                    time : new Date(),
+                    msg: Constants.BOT_CLICK_SUCCESS,
+                    nextBotClick: _nextClick
+                });
+                botClick.save();
                 //set timer for next click
                 setTimeout(async () => {
                     await BotBrain.actions.startBot(this.username);
-                },3600000);
+                }, 3600000);
 
                 this.olog(`CLICKED MINE BUTTON [${this.username}] `, "success");
             }
             catch (e) {
+                var now = new Date();
+                let _nextClick = now.setTime(now.getTime() + (10 * 60 * 1000));
+                var botClick = new BotClick({
+                    username: this.username,
+                    status: "error",
+                    time : new Date(),
+                    msg: Constants.BOT_CLICK_RETRY,
+                    nextBotClick: _nextClick
+                });
+                botClick.save();
+                setTimeout(async () => {
+                    await BotBrain.actions.startBot(this.username);
+                }, 600000);
+
                 this.olog("ERROR :> ", e);
                 this.olog(`CLICKED MINE BUTTON [${this.username}] `, "error");
             }
